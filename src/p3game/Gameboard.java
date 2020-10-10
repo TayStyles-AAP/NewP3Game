@@ -65,143 +65,143 @@ public class Gameboard{
     
     also includes detection for hitting a hotspring
     */
-    public void startGame(int f, SavedData gameData, Statistics stats, mainGUI gui, JFrame frame, mainGUI GUI){
+    public void startGame(int f, SavedData gameData, Statistics stats, JFrame frame, mainGUI GUI){
         gameData.setInGame(true);
         boolean errorState = false;
         boolean hotSpring = false;
-        while (gameData.isInGame() == true){
-            if (errorState == false){
-                Health.printLivesStats(gameData, stats, 1, 1);
-                System.out.println("[W] Up . [S] Down . [A] Left . [D] Right . [Q] Quit");
-            }
-            char movement = scan.next().charAt(0);
-
-            switch (movement) {
-                case 'W':
-                case 'w':
-                    try{
-                        if (gameData.getArr()[gameData.getPlayerY()-1][gameData.getPlayerX()] == 3){
-                            if (hotSpring == true){
-                                gameData.setCurrentPlayerLives(gameData.getCurrentPlayerLives()-1);
-                                System.out.println("** Sizling Sound **");
-                                stats.setNumberOfHotSpringLives(stats.getNumberOfHotSpringLives()+1);
-                                Health.printLivesStats(gameData, stats, 1, 0);
-                                errorState = true;
-                                break;
-                            }
-                            else{
-                                System.out.println("Theres a hot springs in your way! "+ColourPicker.RED+"first warning!"+ColourPicker.RESET);
-                                hotSpring = true;
-                                errorState = true;
-                                break;
-                            }
-                        }
-                        else{
-                            updateGameboard(0,-1, gameData, stats, frame, GUI); //ARR x = Same, y = -1.
-                            errorState = false;
-                            break;
-                        }
-                    }catch(ArrayIndexOutOfBoundsException e){
-                        System.out.println("You CAN hide but you CAN'T run away ;)");
-                        errorState = true;
-                        break;
-                    }
-                case 'S':
-                case 's':
-                    try{
-                        if (gameData.getArr()[gameData.getPlayerY()+1][gameData.getPlayerX()] == 3){
-                            if (hotSpring == true){
-                                gameData.setCurrentPlayerLives(gameData.getCurrentPlayerLives()-1);
-                                System.out.println("** Sizling Sound **");
-                                stats.setNumberOfHotSpringLives(stats.getNumberOfHotSpringLives()+1);
-                                Health.printLivesStats(gameData, stats, 1, 0);
-                                errorState = true;
-                                break;
-                            }
-                            else{
-                                System.out.println("Theres a hot springs in your way! "+ColourPicker.RED+"first warning!"+ColourPicker.RESET);
-                                hotSpring = true;
-                                errorState = true;
-                                break;
-                            }
-                        }
-                        else{
-                            updateGameboard(0,1, gameData, stats, frame, GUI);
-                            errorState = false;
-                            break;
-                        }
-                    }catch(ArrayIndexOutOfBoundsException e){
-                        System.out.println("You CAN hide but you CAN'T run away ;)");
-                        errorState = true;
-                        break;
-                    }
-                case 'A':
-                case 'a':
-                    try{
-                        if (gameData.getArr()[gameData.getPlayerY()][gameData.getPlayerX()-1] == 3){
-                            if (hotSpring == true){
-                                gameData.setCurrentPlayerLives(gameData.getCurrentPlayerLives()-1);
-                                System.out.println("** Sizling Sound **");
-                                stats.setNumberOfHotSpringLives(stats.getNumberOfHotSpringLives()+1);
-                                Health.printLivesStats(gameData, stats, 1, 0);
-                                errorState = true;
-                                break;
-                            }
-                            else{
-                                System.out.println("Theres a hot springs in your way! "+ColourPicker.RED+"first warning!"+ColourPicker.RESET);
-                                hotSpring = true;
-                                errorState = true;
-                                break;
-                            } 
-                        }
-                        else{
-                            updateGameboard(-1,0, gameData, stats, frame, GUI);
-                            errorState = false;
-                            break;
-                        }
-                    }catch(ArrayIndexOutOfBoundsException e){
-                        System.out.println("You CAN hide but you CAN'T run away ;)");
-                        errorState = true;
-                        break;
-                    }
-                case 'D':
-                case 'd':
-                    try{
-                        if (gameData.getArr()[gameData.getPlayerY()][gameData.getPlayerX()+1] == 3){
-                            if (hotSpring == true){
-                                gameData.setCurrentPlayerLives(gameData.getCurrentPlayerLives()-1);
-                                System.out.println("** Sizling Sound **");
-                                stats.setNumberOfHotSpringLives(stats.getNumberOfHotSpringLives()+1);
-                                Health.printLivesStats(gameData, stats, 1, 0);
-                                errorState = true;
-                                break;
-                            }
-                            else{
-                                System.out.println("Theres a hot springs in your way! "+ColourPicker.RED+"first warning!"+ColourPicker.RESET);
-                                hotSpring = true;
-                                errorState = true;
-                                break;
-                            }
-                        }
-                        else{
-                            updateGameboard(1,0, gameData, stats, frame, GUI);
-                            errorState = false;
-                            break;
-                        }
-                    }catch(ArrayIndexOutOfBoundsException e){
-                        System.out.println("You CAN hide but you CAN'T run away ;)");
-                        errorState = true;
-                        break;
-                    }
-                case 'Q':
-                case 'q':
-                    System.exit(0);
-                    break;
-                default:
-                    System.out.println(ColourPicker.RED+"~~Error~~ Enter a valid key."+ColourPicker.RESET);
-                    break;
-            }
-        }
+//        while (gameData.isInGame() == true){
+//            if (errorState == false){
+//                Health.printLivesStats(gameData, stats, 1, 1);
+//                System.out.println("[W] Up . [S] Down . [A] Left . [D] Right . [Q] Quit");
+//            }
+//            //char movement = scan.next().charAt(0);
+//
+//            switch (movement) {
+//                case 'W':
+//                case 'w':
+//                    try{
+//                        if (gameData.getArr()[gameData.getPlayerY()-1][gameData.getPlayerX()] == 3){
+//                            if (hotSpring == true){
+//                                gameData.setCurrentPlayerLives(gameData.getCurrentPlayerLives()-1);
+//                                System.out.println("** Sizling Sound **");
+//                                stats.setNumberOfHotSpringLives(stats.getNumberOfHotSpringLives()+1);
+//                                Health.printLivesStats(gameData, stats, 1, 0);
+//                                errorState = true;
+//                                break;
+//                            }
+//                            else{
+//                                System.out.println("Theres a hot springs in your way! "+ColourPicker.RED+"first warning!"+ColourPicker.RESET);
+//                                hotSpring = true;
+//                                errorState = true;
+//                                break;
+//                            }
+//                        }
+//                        else{
+//                            updateGameboard(0,-1, gameData, stats, frame, GUI); //ARR x = Same, y = -1.
+//                            errorState = false;
+//                            break;
+//                        }
+//                    }catch(ArrayIndexOutOfBoundsException e){
+//                        System.out.println("You CAN hide but you CAN'T run away ;)");
+//                        errorState = true;
+//                        break;
+//                    }
+//                case 'S':
+//                case 's':
+//                    try{
+//                        if (gameData.getArr()[gameData.getPlayerY()+1][gameData.getPlayerX()] == 3){
+//                            if (hotSpring == true){
+//                                gameData.setCurrentPlayerLives(gameData.getCurrentPlayerLives()-1);
+//                                System.out.println("** Sizling Sound **");
+//                                stats.setNumberOfHotSpringLives(stats.getNumberOfHotSpringLives()+1);
+//                                Health.printLivesStats(gameData, stats, 1, 0);
+//                                errorState = true;
+//                                break;
+//                            }
+//                            else{
+//                                System.out.println("Theres a hot springs in your way! "+ColourPicker.RED+"first warning!"+ColourPicker.RESET);
+//                                hotSpring = true;
+//                                errorState = true;
+//                                break;
+//                            }
+//                        }
+//                        else{
+//                            updateGameboard(0,1, gameData, stats, frame, GUI);
+//                            errorState = false;
+//                            break;
+//                        }
+//                    }catch(ArrayIndexOutOfBoundsException e){
+//                        System.out.println("You CAN hide but you CAN'T run away ;)");
+//                        errorState = true;
+//                        break;
+//                    }
+//                case 'A':
+//                case 'a':
+//                    try{
+//                        if (gameData.getArr()[gameData.getPlayerY()][gameData.getPlayerX()-1] == 3){
+//                            if (hotSpring == true){
+//                                gameData.setCurrentPlayerLives(gameData.getCurrentPlayerLives()-1);
+//                                System.out.println("** Sizling Sound **");
+//                                stats.setNumberOfHotSpringLives(stats.getNumberOfHotSpringLives()+1);
+//                                Health.printLivesStats(gameData, stats, 1, 0);
+//                                errorState = true;
+//                                break;
+//                            }
+//                            else{
+//                                System.out.println("Theres a hot springs in your way! "+ColourPicker.RED+"first warning!"+ColourPicker.RESET);
+//                                hotSpring = true;
+//                                errorState = true;
+//                                break;
+//                            } 
+//                        }
+//                        else{
+//                            updateGameboard(-1,0, gameData, stats, frame, GUI);
+//                            errorState = false;
+//                            break;
+//                        }
+//                    }catch(ArrayIndexOutOfBoundsException e){
+//                        System.out.println("You CAN hide but you CAN'T run away ;)");
+//                        errorState = true;
+//                        break;
+//                    }
+//                case 'D':
+//                case 'd':
+//                    try{
+//                        if (gameData.getArr()[gameData.getPlayerY()][gameData.getPlayerX()+1] == 3){
+//                            if (hotSpring == true){
+//                                gameData.setCurrentPlayerLives(gameData.getCurrentPlayerLives()-1);
+//                                System.out.println("** Sizling Sound **");
+//                                stats.setNumberOfHotSpringLives(stats.getNumberOfHotSpringLives()+1);
+//                                Health.printLivesStats(gameData, stats, 1, 0);
+//                                errorState = true;
+//                                break;
+//                            }
+//                            else{
+//                                System.out.println("Theres a hot springs in your way! "+ColourPicker.RED+"first warning!"+ColourPicker.RESET);
+//                                hotSpring = true;
+//                                errorState = true;
+//                                break;
+//                            }
+//                        }
+//                        else{
+//                            updateGameboard(1,0, gameData, stats, frame, GUI);
+//                            errorState = false;
+//                            break;
+//                        }
+//                    }catch(ArrayIndexOutOfBoundsException e){
+//                        System.out.println("You CAN hide but you CAN'T run away ;)");
+//                        errorState = true;
+//                        break;
+//                    }
+//                case 'Q':
+//                case 'q':
+//                    System.exit(0);
+//                    break;
+//                default:
+//                    System.out.println(ColourPicker.RED+"~~Error~~ Enter a valid key."+ColourPicker.RESET);
+//                    break;
+//            }
+//        }
     }
     
     /*
@@ -486,7 +486,7 @@ public class Gameboard{
                     }
                 }
             }
-            scan.nextLine();
+            //scan.nextLine();
         }
         generateBoard(gameData, stats, frame, GUI);
     }
