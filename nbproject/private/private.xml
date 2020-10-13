@@ -5,8 +5,12 @@
         <group>
             <file>file:/Users/taystyles/OneDrive%20-%20AUT%20University/P3Game/src/p3game/Main.java</file>
             <file>file:/Users/taystyles/OneDrive%20-%20AUT%20University/P3Game/src/p3game/mainGUI.java</file>
+            <file>file:/Users/taystyles/OneDrive%20-%20AUT%20University/P3Game/src/p3game/Generator.java</file>
             <file>file:/Users/taystyles/OneDrive%20-%20AUT%20University/P3Game/src/p3game/Gameboard.java</file>
-            <file>file:/Users/taystyles/OneDrive%20-%20AUT%20University/P3Game/src/p3game/PreGameSetup.java</file>
+            <file>file:/Users/taystyles/OneDrive%20-%20AUT%20University/P3Game/src/p3game/Range_Attack.java</file>
+            <file>file:/Users/taystyles/OneDrive%20-%20AUT%20University/P3Game/src/p3game/KeyPress.java</file>
+            <file>file:/Users/taystyles/OneDrive%20-%20AUT%20University/P3Game/src/p3game/Health.java</file>
+            <file>file:/Users/taystyles/OneDrive%20-%20AUT%20University/P3Game/src/p3game/SavedData.java</file>
         </group>
     </open-files>
 </project-private>
