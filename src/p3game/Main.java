@@ -31,6 +31,14 @@ public class Main {
         int screenHeight = d.height;
         int screenWidth = d.width;
         
+        //Database code below
+        Database database = new Database();
+        database.establishConnection(); //Connect to the local database.
+        database.createTable(); //Creates the GameStats table for the leaderboard.
+        //database.insertTable(); //Insert the game statistics into the database.
+        //System.out.println(database.getQuery()); //Get the infomration from the database.
+        //database.closeConnections();
+       
         //Create main frame for the game
         JFrame frame = new JFrame("RPG game");
         frame.setBounds(0, 0, 750, 532);
@@ -39,7 +47,7 @@ public class Main {
         frame.setResizable(false);
         frame.setFocusable(true);
         frame.requestFocus();
-        KeyPress.AddKeyListener(gameboard, gameData, stats, frame, GUI, range);
-        GUI.createAndShowGUI(frame, GUI, gameData, range, false);
+        KeyPress.AddKeyListener(gameboard, gameData, stats, frame, GUI, range, database);
+        GUI.createAndShowGUI(frame, GUI, gameData, range, false, database);
     }
 }

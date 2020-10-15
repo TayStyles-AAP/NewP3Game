@@ -21,7 +21,7 @@ public class Gameboard {
     if there is a 0, it prints the ground char. if its a 1, it prints the player icon, if its a 2 it prints the enemy icon, and finally if its a 3 it
     prints the hot springs and is called everytime the game needs to print the board
      */
-    public void generateBoard(SavedData gameData, Statistics stats, JFrame frame, mainGUI GUI, Range_Attack range) {
+    public void generateBoard(SavedData gameData, Statistics stats, JFrame frame, mainGUI GUI, Range_Attack range, Database database) {
 
         if (gameData.isInGame() == false) {
             gameData.setArr(new int[gameData.getX()][gameData.getY()]);
@@ -35,7 +35,7 @@ public class Gameboard {
             gameData.setInGame(true);
         }
         //gameData.setEnemyInRange(false);
-        GUI.createAndShowGUI(frame, GUI, gameData, range, true);
+        GUI.createAndShowGUI(frame, GUI, gameData, range, true, database);
     }
 
     /*
@@ -43,7 +43,7 @@ public class Gameboard {
     which is printed in the generate gameboard function. 
     Also works out weather to take damage or not.
      */
-    public void updateGameboard(int changePlayerX, int changePlayerY, SavedData gameData, Statistics stats, JFrame frame, mainGUI GUI, Range_Attack range) {
+    public void updateGameboard(int changePlayerX, int changePlayerY, SavedData gameData, Statistics stats, JFrame frame, mainGUI GUI, Range_Attack range, Database database) {
         System.out.println("~~~~~~~~~~~~ | GUI UPDATED | ~~~~~~~~~~~~");
         int tempArr[][] = gameData.getArr();
 
@@ -197,7 +197,7 @@ public class Gameboard {
         } else {
             gameData.setEnemyInRange(false);
         }
-        generateBoard(gameData, stats, frame, GUI, range);
+        generateBoard(gameData, stats, frame, GUI, range, database);
     }
 
     public boolean checkValidMove(char movement, SavedData gameData) {

@@ -200,7 +200,6 @@ public class SavedData {
                 this.y = 10;
                 setMaxEnemyLives(5);
                 this.difficulty = difficulty;
-                stats.setGameMode("Easy");
                 break;
             case 'H':
             case 'h':
@@ -208,7 +207,6 @@ public class SavedData {
                 this.y = 15;
                 setMaxEnemyLives(10);
                 this.difficulty = difficulty;
-                stats.setGameMode("Hard");
                 break;
             default:
                 System.out.println("That wasnt a valid difficulty. Easy selected.");
@@ -216,7 +214,6 @@ public class SavedData {
                 this.y = 10;
                 setMaxEnemyLives(5);
                 this.difficulty = 'E';
-                stats.setGameMode("Easy");
                 break;
         }
     }

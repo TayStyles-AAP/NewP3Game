@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
  * @author taystyles
  */
 public class KeyPress {
-    public static void AddKeyListener(Gameboard gameboard, SavedData gameData, Statistics stats, JFrame frame, mainGUI GUI, Range_Attack range){
+    public static void AddKeyListener(Gameboard gameboard, SavedData gameData, Statistics stats, JFrame frame, mainGUI GUI, Range_Attack range, Database database){
                     //Add the key listener for the whole game.
             frame.addKeyListener(new KeyListener() {
                 boolean minimise = false;
@@ -30,7 +30,7 @@ public class KeyPress {
                     //System.out.println("'"+ e.getKeyChar() +", "+e.getKeyCode()+ "' Pressed");
                     minimise = false;
                     try{
-                        KeyPress.handleKeypress(e.getKeyCode(), gameboard, gameData, stats, frame, GUI, range);
+                        KeyPress.handleKeypress(e.getKeyCode(), gameboard, gameData, stats, frame, GUI, range, database);
                     }catch(NullPointerException k){
                         System.out.println("# No key commands available from the start game screen!");
                     }
@@ -38,9 +38,9 @@ public class KeyPress {
                 }
             });
     }
-    public static void handleKeypress(int e, Gameboard gameboard, SavedData gameData, Statistics stats, JFrame frame, mainGUI GUI, Range_Attack range) {
+    public static void handleKeypress(int e, Gameboard gameboard, SavedData gameData, Statistics stats, JFrame frame, mainGUI GUI, Range_Attack range, Database database) {
         Generator generator = new Generator();
-        System.out.println("# Key: " + e + " Pressed");
+        System.out.println("Keys# Key: " + e + " Pressed");
         boolean minimise = false;
         
         if (e == 91 || e == 93) {
@@ -50,42 +50,42 @@ public class KeyPress {
         switch (e) {
             case 87: //Up key
                 if (gameboard.checkValidMove('w', gameData) == true) {
-                    gameboard.updateGameboard(0, -1, gameData, stats, frame, GUI, range);
+                    gameboard.updateGameboard(0, -1, gameData, stats, frame, GUI, range, database);
                 }
                 break;
             case 83: //down key
                 if (gameboard.checkValidMove('s', gameData) == true) {
-                    gameboard.updateGameboard(0, 1, gameData, stats, frame, GUI, range);
+                    gameboard.updateGameboard(0, 1, gameData, stats, frame, GUI, range, database);
                 }
                 break;
             case 65://left key
                 if (gameboard.checkValidMove('a', gameData) == true) {
-                    gameboard.updateGameboard(-1, 0, gameData, stats, frame, GUI, range);
+                    gameboard.updateGameboard(-1, 0, gameData, stats, frame, GUI, range, database);
                 }
                 break;
             case (68): //right key
                 if (gameboard.checkValidMove('d', gameData) == true) {
-                    gameboard.updateGameboard(1, 0, gameData, stats, frame, GUI, range);
+                    gameboard.updateGameboard(1, 0, gameData, stats, frame, GUI, range, database);
                 }
                 break;
             case 38://up arrow key --> UP
                 if (gameboard.checkValidMove('w', gameData) == true) {
-                    gameboard.updateGameboard(0, -1, gameData, stats, frame, GUI, range);
+                    gameboard.updateGameboard(0, -1, gameData, stats, frame, GUI, range, database);
                 }
                 break;
             case 40: //down arrow key --> DOWN
                 if (gameboard.checkValidMove('s', gameData) == true) {
-                    gameboard.updateGameboard(0, 1, gameData, stats, frame, GUI, range);
+                    gameboard.updateGameboard(0, 1, gameData, stats, frame, GUI, range, database);
                 }
                 break;
             case 37: //left arrow key --> LEFT
                 if (gameboard.checkValidMove('a', gameData) == true) {
-                    gameboard.updateGameboard(-1, 0, gameData, stats, frame, GUI, range);
+                    gameboard.updateGameboard(-1, 0, gameData, stats, frame, GUI, range, database);
                 }
                 break;
             case (39): //right arrow key --> RIGHT
                 if (gameboard.checkValidMove('d', gameData) == true) {
-                    gameboard.updateGameboard(1, 0, gameData, stats, frame, GUI, range);
+                    gameboard.updateGameboard(1, 0, gameData, stats, frame, GUI, range, database);
                 }
                 break;
             case (77): //Minimise (bound just to the M key for now, cant figure out multikey commands with MacOS.
@@ -94,16 +94,16 @@ public class KeyPress {
             case (32):// Space key -> attack
                 if (gameData.isEnemyInRange() == true) {
                     gameData.setEnemyInRange(false);
-                    CalculateAttack(gameboard, gameData, stats, frame, GUI, range, generator, true);
+                    CalculateAttack(gameboard, gameData, stats, frame, GUI, range, generator, true, database);
                 }
                 break;
             case (13): //windows enter key -> Double damage
                 if (gameData.isEnemyInRange() == true && gameData.isPlayerDD() == false) {
                     int attackOdds = ThreadLocalRandom.current().nextInt(0, 3); //1 in 3 odds
-                    System.out.println("# Attack odds: "+attackOdds);
+                    System.out.println("Attack# Attack odds: "+attackOdds);
                     switch(attackOdds){
                         case(0):
-                            CalculateAttack(gameboard, gameData, stats, frame, GUI, range, generator, false);
+                            CalculateAttack(gameboard, gameData, stats, frame, GUI, range, generator, false, database);
                             break;
                         default:
                             break;
@@ -111,20 +111,18 @@ public class KeyPress {
                     gameData.setPlayerDD(true);
                     gameData.setEnemyInRange(false);
                     
-                    //generator.genEntitys('P', gameData); //generate new player
                     generator.genEntitys('E', gameData); //generate new enemy
-                    //generator.genTerrain(gameData);
-                    gameboard.generateBoard(gameData, stats, frame, GUI, range);
+                    gameboard.generateBoard(gameData, stats, frame, GUI, range, database);
 
                 }
                 break;
             case (10): //Mac enter key -> Double damage
                 if (gameData.isEnemyInRange() == true && gameData.isPlayerDD() == false) {
                     int attackOdds = ThreadLocalRandom.current().nextInt(0, 3); //1 in 3 odds
-                    System.out.println("# Attack odds: "+ attackOdds);
+                    System.out.println("Attack# Attack odds: "+ attackOdds);
                     switch(attackOdds){
                         case(0):
-                            CalculateAttack(gameboard, gameData, stats, frame, GUI, range, generator, false);
+                            CalculateAttack(gameboard, gameData, stats, frame, GUI, range, generator, false, database);
                             break;
                         default:
                             break;
@@ -134,7 +132,7 @@ public class KeyPress {
                     //generator.genEntitys('P', gameData); //generate new player
                     generator.genEntitys('E', gameData); //generate new enemy
                     //generator.genTerrain(gameData);
-                    gameboard.generateBoard(gameData, stats, frame, GUI, range);
+                    gameboard.generateBoard(gameData, stats, frame, GUI, range, database);
                 }
                 break;
             default:
@@ -142,7 +140,7 @@ public class KeyPress {
         }
     }
     
-    public static void CalculateAttack(Gameboard gameboard, SavedData gameData, Statistics stats, JFrame frame, mainGUI GUI, Range_Attack range, Generator generator, boolean playerAttack){
+    public static void CalculateAttack(Gameboard gameboard, SavedData gameData, Statistics stats, JFrame frame, mainGUI GUI, Range_Attack range, Generator generator, boolean playerAttack, Database database){
         int willEnemyAttack = ThreadLocalRandom.current().nextInt(0, 3);
         int willPlayerAttack = ThreadLocalRandom.current().nextInt(0, 2);
         int oldEnemyLives = gameData.getCurrentEnemyLives();
@@ -153,26 +151,26 @@ public class KeyPress {
             switch(willPlayerAttack){
             case(0):
                 gameData.setCurrentEnemyLives(gameData.getCurrentEnemyLives() + generator.genAttackCalculation("p", gameData));
-                System.out.println("# Player Attacked Enemy!");
+                System.out.println("Attack# Player Attacked Enemy!");
                 if (gameData.isPlayerDD() == true){
                     gameData.setPlayerDD(false);
                 }
                 break;
             default:
-                System.out.println("# Player Missed Enemy");
+                System.out.println("Attack# Player Missed Enemy");
                 break;
             }
         }
         
-        System.out.println("# Enemy Generated attack option: " + willEnemyAttack);
+        System.out.println("Attack# Enemy Generated attack option: " + willEnemyAttack);
         
         if (willEnemyAttack == 1 && gameData.isEnemyDD() == true){
             willEnemyAttack = 0;
-            System.out.println("# Enemy has double damage applied.");
+            System.out.println("Attack# Enemy has double damage applied.");
         }
         switch (willEnemyAttack) {
             case (0):
-                System.out.println("# Enemy Attacked you back!");
+                System.out.println("Attack# Enemy Attacked you back!");
                 //calculate enemy to player damage
                 gameData.setCurrentPlayerLives(gameData.getCurrentPlayerLives() + generator.genAttackCalculation("e", gameData));
                 if (gameData.isEnemyDD() == true){
@@ -181,7 +179,7 @@ public class KeyPress {
                 break;
             case (1):
                 if (gameData.isEnemyDD() == false) {
-                    System.out.println("# Enemy did not attack. Double damage applied.");
+                    System.out.println("Attack# Enemy did not attack. Double damage applied.");
                     gameData.setEnemyDD(true);
                 }
                 break;
@@ -198,9 +196,9 @@ public class KeyPress {
         
         if(gameData.getCurrentPlayerLives() <= 0){
             gameData.setDisplayWinInfo(true);
-            GUI.createAndShowGUI(frame, GUI, gameData, range, false);
+            GUI.createAndShowGUI(frame, GUI, gameData, range, false, database);
         }else{
-            gameboard.generateBoard(gameData, stats, frame, GUI, range);
+            gameboard.generateBoard(gameData, stats, frame, GUI, range, database);
         }
     }
     

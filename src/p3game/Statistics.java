@@ -14,7 +14,8 @@ public class Statistics {
     Stats class used by the fileIO class to get the relevent data required
     */
     private static int numberOfMoves; 
-    private static String gameMode; 
+    //private static String gameMode; 
+    private static String playerName; 
     private static String playerType;
     private static int numberOfPAttacks; 
     private static int numberOfEAttacks; 
@@ -29,10 +30,6 @@ public class Statistics {
 
     public int getNumberOfMoves() {
         return numberOfMoves;
-    }
-    
-    public String getGameMode() {
-        return gameMode;
     }
 
     public int getNumberOfPAttacks() {
@@ -71,6 +68,14 @@ public class Statistics {
         return numberOfHotSpringLives;
     }
 
+    public static String getPlayerName() {
+        return playerName;
+    }
+
+    public static void setPlayerName(String playerName) {
+        Statistics.playerName = playerName;
+    }
+    
     public void setNumberOfHotSpringLives(int numberOfHotSpringLives) {
         this.numberOfHotSpringLives = numberOfHotSpringLives;
     }
@@ -90,10 +95,6 @@ public class Statistics {
     
     public void setNumberOfMoves(int numberOfMoves) {
         this.numberOfMoves = numberOfMoves;
-    }
-
-    public void setGameMode(String gameMode) {
-        this.gameMode = gameMode;
     }
 
     public void setNumberOfPAttacks(int numberOfPAttacks) {
