@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package p3game;
 
 import java.util.concurrent.ThreadLocalRandom;
@@ -13,7 +8,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Generator {
 
     /*
-    the generate entities method takes a player type as a parameter and uses that to decide which entity to re-spawn.
+    The generate entities method takes a player type as a parameter and uses that to decide which entity to re-spawn.
     for each attack, both entities cleared are re-spawned every time.
      */
     public void genEntitys(char playerType, SavedData gameData) {
@@ -23,7 +18,7 @@ public class Generator {
         int randLoop = 0;
 
         while (randLoop == 0) {
-            if ((tempArr[randY][randX] == 0) && (tempArr[randY+1][randX] == 0) && (tempArr[randY-1][randX] == 0) && (tempArr[randY][randX+1] == 0) && (tempArr[randY][randX-1] == 0) && (tempArr[randY+1][randX+1] == 0) && (tempArr[randY+1][randX-1]) == 0 && (tempArr[randY-1][randX+1])==0 && (tempArr[randY-1][randX-1])==0){
+            if ((tempArr[randY][randX] == 0) && (tempArr[randY + 1][randX] == 0) && (tempArr[randY - 1][randX] == 0) && (tempArr[randY][randX + 1] == 0) && (tempArr[randY][randX - 1] == 0) && (tempArr[randY + 1][randX + 1] == 0) && (tempArr[randY + 1][randX - 1]) == 0 && (tempArr[randY - 1][randX + 1]) == 0 && (tempArr[randY - 1][randX - 1]) == 0) {
                 switch (playerType) {
                     case ('P'):
                         if (gameData.isInGame() == true) { //finds any existing player identifiers in the array and sets them to 0 (ground piece)
@@ -38,6 +33,7 @@ public class Generator {
                         gameData.setPlayerX(randX); //Initilise Enemy X to the prevously random number
                         gameData.setPlayerY(randY); //Initilise Enemy Y to the prevously random number
                         tempArr[randY][randX] = gameData.getPlayerToken(); //sets the random location in the array to the player int.
+                        System.out.println("GEN# Player Generated");
                         break;
                     case ('E'):
                         if (gameData.isInGame() == true) {//finds any existing enemies identifiers in the array and sets them to 0 (ground piece)
@@ -52,6 +48,7 @@ public class Generator {
                         gameData.setEnemyX(randX); //Initilise Enemy X to the prevously generated random number
                         gameData.setEnemyY(randY); //Initilise Enemy Y to the prevously generated random number
                         tempArr[randY][randX] = gameData.getEnemyToken();
+                        System.out.println("GEN# Enemy Generated");
                 }
                 randLoop = 1;
             } else {
@@ -82,18 +79,10 @@ public class Generator {
                 return -2;
             }
         } else {
-            if ((gameData.getDifficulty() == 'E') && (gameData.isEnemyDD() == false && gameData.getPlayerType() == 2)) { //if player is a god + easy mode
-                return -2;
-            } else if ((gameData.getDifficulty() == 'H') && (gameData.isEnemyDD() == true && gameData.getPlayerType() == 2)) { //if player is a god + hard mode
-                return -4;
-            } else if (gameData.getDifficulty() == 'E' && gameData.isEnemyDD() == false) {
+            if (gameData.getDifficulty() == 'E' && gameData.isEnemyDD() == false) {
                 return -1;
             } else if (gameData.getDifficulty() == 'E' && gameData.isEnemyDD() == true) {
                 return -2;
-            } else if (gameData.getDifficulty() == 'H' && gameData.isEnemyDD() == false) {
-                return -2;
-            } else if (gameData.getDifficulty() == 'H' && gameData.isEnemyDD() == true) {
-                return -4;
             }
         }
         return 0;
@@ -139,6 +128,7 @@ public class Generator {
                 }
             }
         }
+        System.out.println("GEN# Terrain Generated");
         gameData.setArr(tempArr);
     }
 

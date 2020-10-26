@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package p3game;
 
-import java.awt.Dimension;
 import java.util.concurrent.*;
 import java.util.*;
 import javax.swing.JFrame;
@@ -22,20 +16,15 @@ public class Gameboard {
     prints the hot springs and is called everytime the game needs to print the board
      */
     public void generateBoard(SavedData gameData, Statistics stats, JFrame frame, mainGUI GUI, Range_Attack range, Database database) {
-
         if (gameData.isInGame() == false) {
             gameData.setArr(new int[gameData.getX()][gameData.getY()]);
             System.out.println("~~~~~~~~~~~~ | GUI Generated | ~~~~~~~~~~~~");
             generator.genTerrain(gameData);
-            System.out.println("# Terrain Generated");
             generator.genEntitys('P', gameData);
-            System.out.println("# Player Generated");
             generator.genEntitys('E', gameData);
-            System.out.println("# Enemy Generated");
             gameData.setInGame(true);
         }
-        //gameData.setEnemyInRange(false);
-        GUI.createAndShowGUI(frame, GUI, gameData, range, true, database);
+        GUI.DisplayGUI(frame, GUI, gameData, range, true, database);
     }
 
     /*
@@ -51,40 +40,47 @@ public class Gameboard {
         gameData.setOldPlayerY(gameData.getPlayerY());
 
         if (changePlayerY != 0) {
-            int newPos = gameData.getPlayerY() + changePlayerY;                                     // Create new int and assign it the players current YPos -1, this is to move the player up the array.
-            if (newPos >= 0 && newPos <= gameData.getY() - 1) {                                // Checking if the newPos value is not out of bounds.
+            int newPos = gameData.getPlayerY() + changePlayerY;       // Create new int and assign it the players current YPos -1, this is to move the player up the array.
+            if (newPos >= 0 && newPos <= gameData.getY() - 1) {       // Checking if the newPos value is not out of bounds.
                 if (gameData.getEnemyX() == gameData.getPlayerX() && gameData.getEnemyY() == gameData.getPlayerY()) {
-                    tempArr[gameData.getPlayerY()][gameData.getPlayerX()] = 2;                      // Append the tempArray to remove the current players marker.
-                } else {
+                    tempArr[gameData.getPlayerY()][gameData.getPlayerX()] = 2;     // Append the tempArray to remove the current players marker.
+                } 
+                else {
                     tempArr[gameData.getPlayerY()][gameData.getPlayerX()] = 0;
                 }
-                tempArr[newPos][gameData.getPlayerX()] = gameData.getPlayerToken();         // Keeps players X the same and applies newPos to players Y.
-                gameData.setPlayerY(newPos);                                            // Set the gamedata to reflect the new player Y position.
+                tempArr[newPos][gameData.getPlayerX()] = gameData.getPlayerToken(); // Keeps players X the same and applies newPos to players Y.
+                gameData.setPlayerY(newPos);               // Set the gamedata to reflect the new player Y position.
             }
-        } else if (changePlayerX != 0) {
+            stats.setNumberOfMoves(stats.getNumberOfMoves() + 1);
+        } 
+        else if (changePlayerX != 0) {
             int newPos = gameData.getPlayerX() + changePlayerX;
             if (newPos >= 0 && newPos <= gameData.getX() - 1) {
                 if (gameData.getEnemyX() == gameData.getPlayerX() && gameData.getEnemyY() == gameData.getPlayerY()) {
                     tempArr[gameData.getPlayerY()][gameData.getPlayerX()] = 2;                      // Append the tempArray to remove the current players marker.
-                } else {
+                } 
+                else {
                     tempArr[gameData.getPlayerY()][gameData.getPlayerX()] = 0;
                 }
                 tempArr[gameData.getPlayerY()][newPos] = gameData.getPlayerToken();
                 gameData.setPlayerX(newPos);
             }
-        } else {
-            System.err.println("Error in the Gameboard.java class, in the UpdateGameboard() function.");
-        }        
-        
-        //<<--ENEMY MOVEMENTS BELOW --//>>
+            stats.setNumberOfMoves(stats.getNumberOfMoves() + 1);
 
+        } 
+        else {
+            System.err.println("Error in the Gameboard.java class, in the UpdateGameboard() function.");
+        }
+
+        //<<--ENEMY MOVEMENTS BELOW --//>>
         boolean enemyLoop = true;
         while (enemyLoop == true) {
             int randMove;
-            
-            if (gameData.getPlayerType() == 3 || gameData.getPlayerType() == 2){
+
+            if (gameData.getPlayerType() == 3 || gameData.getPlayerType() == 2) {
                 randMove = ThreadLocalRandom.current().nextInt(0, 5);
-            }else{
+            } 
+            else {
                 randMove = ThreadLocalRandom.current().nextInt(0, 4);
             }
             switch (randMove) {
@@ -104,7 +100,8 @@ public class Gameboard {
                         gameData.setEnemyY(newPos); // Set the gamedata to reflect the new player Y position.
                         enemyLoop = false;
                         break;
-                    } else {
+                    } 
+                    else {
                         break;
                     }
                 }
@@ -125,7 +122,8 @@ public class Gameboard {
                         gameData.setEnemyY(newPos);
                         enemyLoop = false;
                         break;
-                    } else {
+                    } 
+                    else {
                         break;
                     }
                 }
@@ -145,7 +143,8 @@ public class Gameboard {
                         gameData.setEnemyX(newPos);
                         enemyLoop = false;
                         break;
-                    } else {
+                    } 
+                    else {
                         break;
                     }
                 }
@@ -165,7 +164,8 @@ public class Gameboard {
                         gameData.setEnemyX(newPos);
                         enemyLoop = false;
                         break;
-                    } else {
+                    } 
+                    else {
                         break;
                     }
                 }
@@ -181,15 +181,12 @@ public class Gameboard {
         }
         // </--Enemy movments end --/>
 
-        
         //small bit of error handling within the array below incase of weird movements.
-        if (tempArr[gameData.getPlayerY()][gameData.getPlayerX()] != 1){
+        if (tempArr[gameData.getPlayerY()][gameData.getPlayerX()] != 1) {
             tempArr[gameData.getPlayerY()][gameData.getPlayerX()] = 1;
         }
-        
-        gameData.setArr(tempArr);
 
-        //Enemy Attack below
+        gameData.setArr(tempArr);
 
         //Player Attack Below
         if (range.isEnemyInRange(gameData) == true) {
@@ -205,44 +202,28 @@ public class Gameboard {
             case 'W':
             case 'w':
             try {
-                if (gameData.getArr()[gameData.getPlayerY() - 1][gameData.getPlayerX()] != 3) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return gameData.getArr()[gameData.getPlayerY() - 1][gameData.getPlayerX()] != 3;
             } catch (ArrayIndexOutOfBoundsException e) {
                 return false;
             }
             case 'S':
             case 's':
             try {
-                if (gameData.getArr()[gameData.getPlayerY() + 1][gameData.getPlayerX()] != 3) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return gameData.getArr()[gameData.getPlayerY() + 1][gameData.getPlayerX()] != 3;
             } catch (ArrayIndexOutOfBoundsException e) {
                 return false;
             }
             case 'A':
             case 'a':
             try {
-                if (gameData.getArr()[gameData.getPlayerY()][gameData.getPlayerX() - 1] != 3) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return gameData.getArr()[gameData.getPlayerY()][gameData.getPlayerX() - 1] != 3;
             } catch (ArrayIndexOutOfBoundsException e) {
                 return false;
             }
             case 'D':
             case 'd':
             try {
-                if (gameData.getArr()[gameData.getPlayerY()][gameData.getPlayerX() + 1] != 3) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return gameData.getArr()[gameData.getPlayerY()][gameData.getPlayerX() + 1] != 3;
             } catch (ArrayIndexOutOfBoundsException e) {
                 return false;
             }

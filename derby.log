@@ -1,8 +1,8 @@
 ----------------------------------------------------------------
-Thu Oct 15 12:50:24 NZDT 2020:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0175-2985-9d95-00000f8726b8 
+Mon Oct 26 15:26:31 NZDT 2020:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0175-62ba-829f-00000f7fd2f8 
 on database directory /Users/taystyles/OneDrive - AUT University/P3Game/RPGLeaderDB with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@55054057 
-Loaded from file:/Users/taystyles/OneDrive%20-%20AUT%20University/P3Game/src/lib/derby.jar
+Loaded from file:/Users/taystyles/OneDrive%20-%20AUT%20University/P3Game/derby.jar
 java.vendor=Oracle Corporation
 java.runtime.version=12.0.1+12
 user.dir=/Users/taystyles/OneDrive - AUT University/P3Game

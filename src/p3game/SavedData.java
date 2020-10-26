@@ -40,7 +40,7 @@ public class SavedData {
     private boolean EnemyInRange = false;
     private boolean PlayerInRange = false;
     private boolean displayWinInfo = false;
-    
+
     private String AttackText;
     ImageIcon grassIcon;
     ImageIcon ObjectIcon;
@@ -266,7 +266,6 @@ public class SavedData {
                 setMaxPlayerLives(5);
                 break;
             default:
-                stats.setPlayerType("nil");
                 break;
         }
         this.playerType = playerType;
@@ -282,21 +281,14 @@ public class SavedData {
 
     public void setEnemyDD(boolean enemyDD) {
         this.enemyDD = enemyDD;
-        if (enemyDD == true) {
-            stats.setNumOfEnemyPowerUps(stats.getNumOfEnemyPowerUps() + 1);
-        }
     }
 
     public void setPlayerDD(boolean playerDD) {
         this.playerDD = playerDD;
-        if (playerDD == true) {
-            stats.setNumOfPlayerPowerUps(stats.getNumOfPlayerPowerUps() + 1);
-        }
     }
 
     //Buffered Icon files
     public void setGrassIcon() throws IOException {
-        //imageIcon = new ImageIcon(hall = ImageIO.read(new File("C:/hall.jpg")));
         this.grassIcon = new ImageIcon(ImageIO.read(new File("img/Grass.png")));
     }
 
@@ -361,7 +353,7 @@ public class SavedData {
     public void setEnemyInRange(boolean EnemyInRange) {
         this.EnemyInRange = EnemyInRange;
     }
-    
+
     public boolean isPlayerInRange() {
         return PlayerInRange;
     }
